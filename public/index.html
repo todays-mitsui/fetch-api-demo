@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
+
+<title>Fetch API Example</title>
+
+<style>
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 800px;
+  margin: 0 auto;
+  padding: 40px 0;
+}
+
+div[class^="status"] {
+  margin-bottom: 40px;
+}
+
+button {
+  width: 100%;
+  padding: .6em 0;
+
+  font-size: 16px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="status-200">
+    <button class="btn-200">正常終了するリクエスト(ステータスコード:200)</button>
+  </div><!-- /.status-200 -->
+
+  <div class="status-400">
+    <button class="btn-400">クライアントエラーになるリクエスト(ステータスコード:400)</button>
+  </div><!-- /.status-400 -->
+
+  <div class="status-500">
+    <button class="btn-500">サーバーエラーになるリクエスト(ステータスコード:500)</button>
+  </div><!-- /.status-500 -->
+
+</div><!-- /.container -->
+
+<script src="js/fetch.js"></script>
+<script src="js/promise.js"></script>
+
+</body>
+</html>
