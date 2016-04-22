@@ -6,32 +6,7 @@
 
 <title>Fetch API Example</title>
 
-<style>
-body {
-  margin: 0;
-  padding: 0;
-}
-
-.container {
-  width: 800px;
-  margin: 0 auto;
-  padding: 40px 0;
-}
-
-div[class^="status"] {
-  margin-bottom: 40px;
-}
-
-button {
-  width: 100%;
-  padding: .6em 0;
-
-  font-size: 16px;
-
-  cursor: pointer;
-}
-</style>
-
+<link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
@@ -43,14 +18,15 @@ button {
   </div><!-- /.status-200 -->
 
   <div class="status-400">
-    <button class="btn-400">クライアントエラーになるリクエスト(ステータスコード:400)</button>
+    <button class="btn-400">クライアントエラーが返されるリクエスト(ステータスコード:400)</button>
   </div><!-- /.status-400 -->
 
   <div class="status-500">
-    <button class="btn-500">サーバーエラーになるリクエスト(ステータスコード:500)</button>
+    <button class="btn-500">サーバーエラーが返されるリクエスト(ステータスコード:500)</button>
   </div><!-- /.status-500 -->
 
 </div><!-- /.container -->
+
 
 <script src="js/fetch.js"></script>
 <script src="js/promise.js"></script>
@@ -90,40 +66,40 @@ var onRejected = function(err) {
 
 /*** ボタンを押したときのイベントを設定 ***/
 
-var btn200 = document.querySelector('.btn-200');
-btn200.addEventListener('click', function(e) {
-  e.preventDefault();
+document.querySelector('.btn-200')
+  .addEventListener('click', function(e) {
+    e.preventDefault();
 
-  // '/api/200' に GET リクエストを投げる
-  fetch('/api/200')
-    .then(prepare)
-    .then(onFulfilled)
-    .catch(onRejected);
-}, true);
-
-
-var btn400 = document.querySelector('.btn-400');
-btn400.addEventListener('click', function(e) {
-  e.preventDefault();
-
-  // '/api/400' に GET リクエストを投げる
-  fetch('/api/400')
-    .then(prepare)
-    .then(onFulfilled)
-    .catch(onRejected);
-}, true);
+    // '/api/200' に GET リクエストを投げる
+    fetch('/api/200')
+      .then(prepare)
+      .then(onFulfilled)
+      .catch(onRejected);
+  }, true);
 
 
-var btn500 = document.querySelector('.btn-500');
-btn500.addEventListener('click', function(e) {
-  e.preventDefault();
+document.querySelector('.btn-400')
+  .addEventListener('click', function(e) {
+    e.preventDefault();
 
-  // '/api/500' に GET リクエストを投げる
-  fetch('/api/500')
-    .then(prepare)
-    .then(onFulfilled)
-    .catch(onRejected);
-}, true);
+    // '/api/400' に GET リクエストを投げる
+    fetch('/api/400')
+      .then(prepare)
+      .then(onFulfilled)
+      .catch(onRejected);
+  }, true);
+
+
+document.querySelector('.btn-500')
+  .addEventListener('click', function(e) {
+    e.preventDefault();
+
+    // '/api/500' に GET リクエストを投げる
+    fetch('/api/500')
+      .then(prepare)
+      .then(onFulfilled)
+      .catch(onRejected);
+  }, true);
 </script>
 
 </body>
