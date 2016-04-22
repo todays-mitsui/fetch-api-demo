@@ -27,6 +27,8 @@ button {
   padding: .6em 0;
 
   font-size: 16px;
+
+  cursor: pointer;
 }
 </style>
 
@@ -52,6 +54,77 @@ button {
 
 <script src="js/fetch.js"></script>
 <script src="js/promise.js"></script>
+<script>
+/*** レスポンスを処理するハンドラを定義 ***/
+
+// レスポンスに対して共通で行う前処理
+var prepare = function(response) {
+  // ステータスコードとステータステキストを表示
+  console.info('status: ', response.status);
+  console.info('statusText: ', response.statusText);
+
+  // レスポンスボディをJSONとしてパース
+  return response.json();
+}
+
+// 正常終了時の処理
+var onFulfilled = function(data) {
+  var message = ([
+    '成功ハンドラで処理されました。',
+    'data: ' + JSON.stringify(data, null, '  '),
+  ]).join('\n');
+
+  alert(message);
+};
+
+// エラー終了時の処理
+var onRejected = function(err) {
+  var message = ([
+    '失敗ハンドラで処理されました。',
+    'err: ' + JSON.stringify(err, null, '  '),
+  ]).join('\n');
+
+  alert(message);
+};
+
+
+/*** ボタンを押したときのイベントを設定 ***/
+
+var btn200 = document.querySelector('.btn-200');
+btn200.addEventListener('click', function(e) {
+  e.preventDefault();
+
+  // '/api/200' に GET リクエストを投げる
+  fetch('/api/200')
+    .then(prepare)
+    .then(onFulfilled)
+    .catch(onRejected);
+}, true);
+
+
+var btn400 = document.querySelector('.btn-400');
+btn400.addEventListener('click', function(e) {
+  e.preventDefault();
+
+  // '/api/400' に GET リクエストを投げる
+  fetch('/api/400')
+    .then(prepare)
+    .then(onFulfilled)
+    .catch(onRejected);
+}, true);
+
+
+var btn500 = document.querySelector('.btn-500');
+btn500.addEventListener('click', function(e) {
+  e.preventDefault();
+
+  // '/api/500' に GET リクエストを投げる
+  fetch('/api/500')
+    .then(prepare)
+    .then(onFulfilled)
+    .catch(onRejected);
+}, true);
+</script>
 
 </body>
 </html>
