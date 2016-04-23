@@ -25,6 +25,20 @@ $app->get("/api/200", function ($request, $response) {
     return $response->withJson($data, 200, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE);
 });
 
+$app->get("/api/200/invalid", function ($request, $response) {
+    // わざと不正な JSON を書く
+    // この JSON には区切りのカンマが足りない
+    $data = <<< EOD
+{
+  "status": "OK. but..."
+  "message": "リクエストは正常に処理されました。\nでも、この JSON には構文エラーがある？"
+}
+EOD;
+
+    return $response->withHeader('Content-type', 'application/json')
+                    ->write($data);
+});
+
 $app->get("/api/400", function ($request, $response) {
     $data = [
         "status"  => "Bad Request",
