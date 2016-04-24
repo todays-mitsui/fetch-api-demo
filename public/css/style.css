@@ -1,12 +1,11 @@
-body {
-  margin: 0;
-  padding: 0;
+section {
+  margin-bottom: 2.8em;
 }
 
-.container {
-  width: 800px;
-  margin: 0 auto;
-  padding: 40px 0;
+h2 {
+  padding-left: .4em;
+
+  border-left: 8px #555 solid;
 }
 
 div[class^="status"] {
@@ -20,4 +19,29 @@ button {
   font-size: 16px;
 
   cursor: pointer;
+}
+
+.hljs {
+  padding: 1.2em;
+
+  border-radius: 4px;
+}
+
+.api-link {
+  margin-bottom: .4em;
+
+  font-size: 1.6em;
+}
+.api-link::before {
+  content: "⇒ ";
+}
+
+dt {
+  font-weight: bold;
+}
+dd {
+  margin-bottom: .8em;
+}
+dd:last-child {
+  margin-bottom: 0;
 }

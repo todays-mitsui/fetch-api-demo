@@ -6,14 +6,9 @@ require_once(__DIR__."/../vendor/autoload.php");
 $app = new \Slim\App;
 
 $app->get("/", function ($request, $response) {
-    return $response->write("
-      <h1>JSON API</h1>
-      <ul>
-        <li><a href=\"/api/200\" target=\"_blank\">2xx 正常終了</a></li>
-        <li><a href=\"/api/400\" target=\"_blank\">4xx クライアントエラー</a></li>
-        <li><a href=\"/api/500\" target=\"_blank\">5xx サーバーエラー</a></li>
-      </ul>
-    ");
+    $tpl = file_get_contents("index.tpl");
+
+    return $response->write($tpl);
 });
 
 $app->get("/api/200", function ($request, $response) {
@@ -30,12 +25,12 @@ $app->get("/api/200/invalid", function ($request, $response) {
     // この JSON には区切りのカンマが足りない
     $data = <<< EOD
 {
-  "status": "OK. but..."
-  "message": "リクエストは正常に処理されました。\nでも、この JSON には構文エラーがある？"
+    "status": "OK. but..."
+    "message": "リクエストは正常に処理されました。でも、この JSON には構文エラーがある？"
 }
 EOD;
 
-    return $response->withHeader('Content-type', 'application/json')
+    return $response->withHeader('Content-type', 'application/json;charset=utf-8')
                     ->write($data);
 });
 
