@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
+
+<title>Fetch API Example</title>
+
+<link href='https://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+
+<link rel="stylesheet" href="/css/skyblue.min.css">
+<link rel="stylesheet" href="/css/arta.css">
+<link rel="stylesheet" href="/css/style.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>Fetch API その2</h1>
+
+  <p>
+    ボタンを押すと <code>fetch()</code> を使って API にリクエストが投げます。
+    返ってきた JSON をパースした後、<code>alert()</code> で表示します。<br>
+    2xx 以外のレスポンスコードが返ったときには明示的に <code>throw Error()</code> するようにしました。
+    投げたエラーは <code>Promise.prototype.catch()</code> で捕捉することができます。
+  </p>
+
+  <div class="row">
+    <section class="status-200 col md-6">
+      <button class="btn btn-200">正常終了<br>(ステータスコード:200)</button>
+    </section><!-- /.status-200 -->
+
+    <section class="status-200-invalid-json col md-6">
+      <button class="btn btn-200-invalid-json">正常終了+不正なJSON<br>(ステータスコード:200)</button>
+    </section><!-- /.status-200-invalid-json -->
+  </div><!-- /.row -->
+
+  <div class="row">
+    <section class="status-400 col md-6">
+      <button class="btn btn-400">クライアントエラー<br>(ステータスコード:400)</button>
+    </section><!-- /.status-400 -->
+
+    <section class="status-500 col md-6">
+      <button class="btn btn-500">サーバーエラー<br>(ステータスコード:500)</button>
+    </section><!-- /.status-500 -->
+  </div><!-- /.row -->
+
+  <section class="code">
+    <h2>ソースコード</h2>
+
+<pre><code class="javascript">// レスポンスに対して共通で行う前処理
+// 4xx系, 5xx系のエラーをさばくハンドラ
+function handleErrors(response) {
+  // 4xx系, 5xx系エラーのときには response.ok = false になる
+  if (!response.ok) {
+    throw Error(response.statusText);
+  }
+
+  return response;
+}
+
+var prepare = function(response) {
+  // ステータスコードとステータステキストを表示
+  console.info('ok?: ', response.ok);
+  console.info('status: ', response.status);
+  console.info('statusText: ', response.statusText);
+
+  // レスポンスボディをJSONとしてパース
+  return response.json();
+}
+
+// 正常終了時の処理
+var onFulfilled = function(data) {
+  var message = ([
+    '成功ハンドラで処理されました。',
+    'data: ' + JSON.stringify(data, null, '  '),
+  ]).join('\n');
+
+  console.log(data);
+  alert(message);
+};
+
+// エラー終了時の処理
+var onRejected = function(err) {
+  var message = ([
+    '失敗ハンドラで処理されました。',
+    'error: ' + err.message,
+  ]).join('\n');
+
+  console.error(err);
+  alert(message);
+};
+
+fetch('/path/to/api')
+  .then(handleErrors)
+  .then(prepare)
+  .then(onFulfilled)
+  .catch(onRejected);
+</code></pre>
+  </section><!-- /.code -->
+
+</div><!-- /.container -->
+
+
+<script src="js/fetch.js"></script>
+<script src="js/promise.js"></script>
+<script>
+/*** レスポンスを処理するハンドラを定義 ***/
+
+// 4xx系, 5xx系のエラーをさばくハンドラ
+function handleErrors(response) {
+  // 4xx系, 5xx系エラーのときには response.ok==false になる
+  if (!response.ok) {
+    throw Error(response.statusText);
+  }
+
+  return response;
+}
+
+// レスポンスに対して共通で行う前処理
+var prepare = function(response) {
+  // ステータスコードとステータステキストを表示
+  console.info('ok?: ', response.ok);
+  console.info('status: ', response.status);
+  console.info('statusText: ', response.statusText);
+
+  // レスポンスボディをJSONとしてパース
+  return response.json();
+}
+
+// 正常終了時の処理
+var onFulfilled = function(data) {
+  var message = ([
+    '成功ハンドラで処理されました。',
+    'data: ' + JSON.stringify(data, null, '  '),
+  ]).join('\n');
+
+  console.log(data);
+  alert(message);
+};
+
+// エラー終了時の処理
+var onRejected = function(err) {
+  var message = ([
+    '失敗ハンドラで処理されました。',
+    'error: ' + err.message,
+  ]).join('\n');
+
+  console.error(err);
+  alert(message);
+};
+
+
+/*** ボタンを押したときのイベントを設定 ***/
+
+document.querySelector('.btn-200')
+  .addEventListener('click', function(e) {
+    e.preventDefault();
+
+    // '/api/200' に GET リクエストを投げる
+    fetch('/api/200')
+      .then(handleErrors)
+      .then(prepare)
+      .then(onFulfilled)
+      .catch(onRejected);
+  }, true);
+
+
+document.querySelector('.btn-200-invalid-json')
+  .addEventListener('click', function(e) {
+    e.preventDefault();
+
+    // '/api/200/invalid' に GET リクエストを投げる
+    fetch('/api/200/invalid')
+      .then(handleErrors)
+      .then(prepare)
+      .then(onFulfilled)
+      .catch(onRejected);
+  }, true);
+
+
+document.querySelector('.btn-400')
+  .addEventListener('click', function(e) {
+    e.preventDefault();
+
+    // '/api/400' に GET リクエストを投げる
+    fetch('/api/400')
+      .then(handleErrors)
+      .then(prepare)
+      .then(onFulfilled)
+      .catch(onRejected);
+  }, true);
+
+
+document.querySelector('.btn-500')
+  .addEventListener('click', function(e) {
+    e.preventDefault();
+
+    // '/api/500' に GET リクエストを投げる
+    fetch('/api/500')
+      .then(handleErrors)
+      .then(prepare)
+      .then(onFulfilled)
+      .catch(onRejected);
+  }, true);
+</script>
+
+<script src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+</html>

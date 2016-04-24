@@ -27,13 +27,13 @@
       <dl>
         <dt>リクエスト</dt>
         <dd>
-  <pre><code class="http">GET /api/200 HTTP/1.1
+<pre><code class="http">GET /api/200 HTTP/1.1
   Host: example.com</code></pre>
         </dd>
 
         <dt>レスポンス</dt>
         <dd>
-<code><pre>HTTP/1.1 200 OK
+<pre><code class="http">HTTP/1.1 200 OK
 Host: example.com
 Content-Type: application/json;charset=utf-8
 Content-Length: 89
@@ -54,13 +54,13 @@ Content-Length: 89
       <dl>
         <dt>リクエスト</dt>
         <dd>
-  <pre><code class="http">GET /api/200/invalid HTTP/1.1
-  Host: example.com</code></pre>
+<pre><code class="http">GET /api/200/invalid HTTP/1.1
+Host: example.com</code></pre>
         </dd>
 
         <dt>レスポンス</dt>
         <dd>
-<code><pre>
+<pre><code class="http">
 HTTP/1.1 200 OK
 Host: example.com
 Content-type: application/json;charset=utf-8
