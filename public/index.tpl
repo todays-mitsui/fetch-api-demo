@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
 
-<title>Fetch API Example</title>
+<title>Fetch API Demo</title>
 
 <link rel="stylesheet" href="/css/skyblue.min.css">
 <link rel="stylesheet" href="/css/arta.css">
