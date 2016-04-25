@@ -60,8 +60,7 @@ Host: example.com</code></pre>
 
         <dt>レスポンス</dt>
         <dd>
-<pre><code class="http">
-HTTP/1.1 200 OK
+<pre><code class="http">HTTP/1.1 200 OK
 Host: example.com
 Content-type: application/json;charset=utf-8
 Content-Length: 156

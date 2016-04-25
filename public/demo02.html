@@ -52,7 +52,7 @@
 
 <pre><code class="javascript">// レスポンスに対して共通で行う前処理
 // 4xx系, 5xx系のエラーをさばくハンドラ
-function handleErrors(response) {
+var handleErrors = function(response) {
   // 4xx系, 5xx系エラーのときには response.ok = false になる
   if (!response.ok) {
     throw Error(response.statusText);
@@ -110,8 +110,8 @@ fetch('/path/to/api')
 /*** レスポンスを処理するハンドラを定義 ***/
 
 // 4xx系, 5xx系のエラーをさばくハンドラ
-function handleErrors(response) {
-  // 4xx系, 5xx系エラーのときには response.ok==false になる
+var handleErrors = function(response) {
+  // 4xx系, 5xx系エラーのときには response.ok = false になる
   if (!response.ok) {
     throw Error(response.statusText);
   }
